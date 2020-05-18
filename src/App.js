@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, Fragment } from 'react';
 import './App.css';
 
-function App() {
+import { UserList, UserForm, EmptyForm } from './components';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from './store/_actions/userActions';
+
+
+
+const App = () => {
+
+  const users = useSelector(state => state.userReducer.users);
+  const editing = useSelector(state => state.userReducer.editing)
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getUsers()); 
+  }, [])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <div>
+      <div className="container">
+        <div className="adminPanel">
+          <UserList users={users} />
+          {editing ? (<Fragment>
+            <UserForm />
+          </Fragment>) : (<Fragment>
+            <EmptyForm />
+          </Fragment>)}
+        </div>
+      </div>
     </div>
-  );
+  )
+
+
+
 }
 
 export default App;
