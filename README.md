@@ -1,4 +1,4 @@
-﻿## User Management Panel built with React
+﻿## User Management Panel built with React and Redux Hooks
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
